@@ -1,5 +1,7 @@
+import {expect} from "chai";
+
 import mongodb from "services/mongodb";
-import {AGGREGATES_COLLECTION_NAME} from "config";
+import {AGGREGATES_COLLECTION_NAME, YEARLY_AGGREGATES_COLLECTION_NAME} from "config";
 import * as utils from "../utils";
 import {getEventFromObject, run} from "../mocks";
 
@@ -22,6 +24,8 @@ describe("On reading", async () => {
 
     describe("creates and insert a yearly aggregate", async () => {
         const event = getEventFromObject(utils.defaultReadings()[0]);
-        // await run(handler, event);
+        await run(handler, event);
+        const consumptions = await db.collection(YEARLY_AGGREGATES_COLLECTION_NAME).find();
+        expect(1).to.be.equals(consumptions.length);
     });
 });
