@@ -23,28 +23,132 @@ describe("On reading", () => {
     });
 
     after(async () => {
-        await db.dropCollection(DAILY_AGGREGATES_COLLECTION_NAME);
-        await db.dropCollection(YEARLY_AGGREGATES_COLLECTION_NAME);
+        db.dropCollection(DAILY_AGGREGATES_COLLECTION_NAME);
+        db.dropCollection(YEARLY_AGGREGATES_COLLECTION_NAME);
         await db.close();
     });
 
-    beforeEach(async () => {
-        await dailyAggregates.remove({});
-        await yearlyAggregates.remove({});
+    afterEach(async () => {
+        dailyAggregates.remove({});
+        yearlyAggregates.remove({});
     });
 
-    it("create a yearly aggregate", async () => {
-        const event = getEventFromObject(utils.getSensorWithSourceInMeasurements("2016-01-28T00:16:36.389Z", "reading"));
-        await run(handler, event);
-        const consumptions = await yearlyAggregates.find({}).toArray();
-        expect(1).to.be.equals(consumptions.length);
+    describe("without readings on DB (no SUM)", () => {
+
+        it("create a yearly aggregate", async () => {
+
+            const event = getEventFromObject(
+                utils.getSensorWithSourceInMeasurements("2016-01-04T00:16:36.389Z", "reading"));
+            const expected = {
+                _id: "sensor1-2016-reading-activeEnergy",
+                year: "2016",
+                sensorId: "sensor1",
+                source: "reading",
+                measurementType: "activeEnergy",
+                measurementValues: ",,,0.808",
+                unitOfMeasurement: "kWh"
+            };
+            await run(handler, event);
+            const consumptions = await yearlyAggregates.find({}).toArray();
+            expect([expected]).to.deep.equal(consumptions);
+        });
+
+        it("updates a yearly aggregate", async () => {
+
+            await yearlyAggregates.insert(utils.yearAggregateActiveEnergy);
+            const event = getEventFromObject(
+                utils.getSensorWithSourceInMeasurements("2016-01-01T00:00:36.389Z", "reading"));
+            await run(handler, event);
+            const expected = {
+                _id: "sensor1-2016-reading-activeEnergy",
+                year: "2016",
+                sensorId: "sensor1",
+                source: "reading",
+                measurementType: "activeEnergy",
+                measurementValues: "0.808,2,,",
+                unitOfMeasurement: "kWh"
+            };
+            const consumptions = await yearlyAggregates.find({}).toArray();
+            expect([expected]).to.deep.equal(consumptions);
+        });
+
+        it("does nothing if measurements source is not `reading`", async () => {
+
+            const event = getEventFromObject(
+                utils.getSensorWithSourceInMeasurements("2016-01-04T00:00:36.389Z", "forecast"));
+            await run(handler, event);
+            const consumptions = await yearlyAggregates.find({}).toArray();
+            expect(0).to.equal(consumptions.length);
+        });
     });
 
-    it("updates a yearly aggregate", async () => {
-        const event = getEventFromObject(utils.defaultReadings[0]);
-        await run(handler, event);
-        // const consumptions = await yearlyAggregates.find({}).toArray();
-        // expect(1).to.be.equals(consumptions.length);
-        expect(true).to.be.equals(true);
+    describe("with readings on DB (SUM)", () => {
+
+        it("creates a yearly aggregate", async () => {
+
+            await dailyAggregates.insert({
+                _id: "sensor1-2016-01-04-reading-activeEnergy",
+                day: "2016-01-04",
+                sensorId: "sensor1",
+                source: "reading",
+                measurementType: "activeEnergy",
+                measurementValues: "1,2",
+                unitOfMeasurement: "kWh"
+            });
+
+            const event = getEventFromObject(
+                utils.getSensorWithSourceInMeasurements("2016-01-04T00:16:36.389Z", "reading"));
+            const expected = {
+                _id: "sensor1-2016-reading-activeEnergy",
+                year: "2016",
+                sensorId: "sensor1",
+                source: "reading",
+                measurementType: "activeEnergy",
+                measurementValues: ",,,3.808",
+                unitOfMeasurement: "kWh"
+            };
+
+            await run(handler, event);
+            const consumptions = await yearlyAggregates.find({}).toArray();
+            expect([expected]).to.deep.equal(consumptions);
+        });
+
+        it("updates a yearly aggregate", async () => {
+
+            await dailyAggregates.insert({
+                _id: "sensor1-2016-01-04-reading-activeEnergy",
+                day: "2016-01-04",
+                sensorId: "sensor1",
+                source: "reading",
+                measurementType: "activeEnergy",
+                measurementValues: "1,2",
+                unitOfMeasurement: "kWh"
+            });
+            await yearlyAggregates.insert({
+                _id: "sensor1-2016-reading-activeEnergy",
+                year: "2016",
+                sensorId: "sensor1",
+                source: "reading",
+                measurementType: "activeEnergy",
+                measurementValues: "1,2,3,4",
+                unitOfMeasurement: "kWh"
+            });
+
+            const event = getEventFromObject(
+                utils.getSensorWithSourceInMeasurements("2016-01-04T00:16:36.389Z", "reading"));
+            const expected = {
+                _id: "sensor1-2016-reading-activeEnergy",
+                year: "2016",
+                sensorId: "sensor1",
+                source: "reading",
+                measurementType: "activeEnergy",
+                measurementValues: "1,2,3,3.808",
+                unitOfMeasurement: "kWh"
+            };
+
+            await run(handler, event);
+            const consumptions = await yearlyAggregates.find({}).toArray();
+            expect([expected]).to.deep.equal(consumptions);
+        });
     });
 });

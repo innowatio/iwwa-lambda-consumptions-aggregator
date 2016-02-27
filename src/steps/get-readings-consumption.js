@@ -25,16 +25,16 @@ function getSum (reading, measurementsString) {
 function mergeReadingAndAggregate (reading, aggregate) {
     return {
         ...reading,
-        sum: getSum(reading, path(["measurementValue"], aggregate) || "")
+        sum: getSum(reading, path(["measurementValues"], aggregate) || "")
     };
 }
 
 // find the aggregate for each reading and merge them
 export default function getReadingsConsumption (readings, aggregates) {
-
     return readings.map(reading => {
-        return mergeReadingAndAggregate(reading, aggregates.find((agg) => {
+        const aggregate = aggregates.find((agg) => {
             return path(["measurementType"], agg) === reading.measurementType;
-        }));
+        });
+        return mergeReadingAndAggregate(reading, aggregate);
     });
 }

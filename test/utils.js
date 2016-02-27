@@ -76,7 +76,7 @@ export const dayAggregateActiveEnergy = {
     day: "2016-01-28",
     source: "reading",
     measurementType: "activeEnergy",
-    measurementValue: "1.1,,5,6",
+    measurementValues: "1.1,,5,6",
     unitOfMeasurement: "kWh"
 };
 
@@ -85,7 +85,7 @@ export const dayAggregateReactiveEnergy = {
     day: "2016-01-28",
     source: "reading",
     measurementType: "reactiveEnergy",
-    measurementValue: "2.2,1,2.2,3.3",
+    measurementValues: "2.2,1,2.2,3.3",
     unitOfMeasurement: "°C"
 };
 
@@ -94,7 +94,7 @@ export const dayAggregateMaxPower = {
     day: "2016-01-28",
     source: "reading",
     measurementType: "maxPower",
-    measurementValue: "0,9,8",
+    measurementValues: "0,9,8",
     unitOfMeasurement: "VAr"
 };
 
