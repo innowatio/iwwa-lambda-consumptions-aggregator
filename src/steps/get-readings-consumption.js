@@ -19,7 +19,7 @@ function getSum (reading, measurementsString) {
     measurements[getOffset(reading.date)] = reading.measurementValue;
     return parseFloat(measurements.reduce((prev, value) => {
         return prev + (parseFloat(value || 0));
-    }, 0).toFixed(2));
+    }, 0).toFixed(3));
 }
 
 function mergeReadingAndAggregate (reading, aggregate) {
