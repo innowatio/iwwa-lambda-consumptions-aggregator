@@ -33,7 +33,7 @@ export function getSensorWithSourceInMeasurements (date, source) {
     };
 }
 
-export function getReading ({source="forecast", type="temperature"}) {
+export function getMeasure ({source="forecast", type="temperature"}) {
     return {
         "sensorId": "sensor1",
         "date": "2016-01-28T00:16:36.389Z",
