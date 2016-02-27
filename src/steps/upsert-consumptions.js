@@ -17,10 +17,9 @@ function convertReadingDate (dateString) {
     return dateInMs - (dateInMs % MEASUREMENTS_DELTA_IN_MS);
 }
 
-function getOffset (readingDate) {
+function getYearOffset (readingDate) {
     const date = convertReadingDate(readingDate);
-    const startOfDay = moment.utc(date).startOf("day").valueOf();
-    return (date - startOfDay) / MEASUREMENTS_DELTA_IN_MS;
+    return moment.utc(date).dayOfYear()-1;
 }
 
 function getAggregateId (consumption) {
@@ -59,7 +58,7 @@ async function getOrCreateConsumption (consumption) {
         .findOne({_id: getAggregateId(consumption)});
     const agg = aggregate || getDefaultAggregate(consumption);
     var values = (agg.measurementValues || "").split(",");
-    values[getOffset(date)] = sum;
+    values[getYearOffset(date)] = sum;
     return {
         ...agg,
         measurementValues: values.join(",")
