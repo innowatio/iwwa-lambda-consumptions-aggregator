@@ -1,7 +1,7 @@
 import "babel/polyfill";
 import router from "kinesis-router";
 import {map} from "bluebird";
-import {isNil} from "ramda";
+import {isNil, filter} from "ramda";
 
 import skipProcessing from "./steps/skip-processing";
 import findDailyAggregate from "./steps/find-daily-aggregate";
@@ -26,7 +26,12 @@ async function pipeline (event) {
     }
 
     // spread
-    const readings = spreadReadingByMeasurementType(rawReading);
+    const readings = filter((reading) => {
+        return reading.measurementType === "activeEnergy";
+    }, spreadReadingByMeasurementType(rawReading));
+    if (!readings) {
+        return null;
+    }
 
     // retrieve daily aggregate
     const dailyAggregates = await map(readings, findDailyAggregate);
