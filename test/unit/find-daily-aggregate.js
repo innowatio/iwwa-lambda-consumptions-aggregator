@@ -34,25 +34,17 @@ describe("findDailyAggregate", () => {
         await dailyAggregates.insert(aggregateMockActiveEnergySensor);
     });
 
-    it("find the correct aggregate on DB", async () => {
+    it("finds the correct aggregate on DB", async () => {
         const reading = [{
-            "sensorId": "sensor1",
-            "date": "2016-01-28T00:16:36.389Z",
-            "source": "reading",
-            "measurementType": "activeEnergy",
-            "measurementValue": "1.1",
-            "unitOfMeasurement": "kWh"
-        }, {
-            "sensorId": "sensor1",
-            "date": "2016-01-28T00:16:36.389Z",
-            "source": "reading",
-            "measurementType": "activeEnergy",
-            "measurementValue": "1.1",
-            "unitOfMeasurement": "kWh"
+            sensorId: "sensor1",
+            date: "2016-01-28T00:16:36.389Z",
+            source: "reading",
+            measurementType: "activeEnergy",
+            measurementValue: "1.1",
+            unitOfMeasurement: "kWh"
         }];
 
         const result = await map(reading, findDailyAggregate);
-        expect(result).to.deep.equal([aggregateMockActiveEnergySensor, aggregateMockActiveEnergySensor]);
+        expect(result).to.deep.equal([aggregateMockActiveEnergySensor]);
     });
-
 });

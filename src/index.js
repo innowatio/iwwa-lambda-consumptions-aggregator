@@ -1,6 +1,7 @@
 import "babel/polyfill";
 import router from "kinesis-router";
 import {map} from "bluebird";
+import {isNil} from "ramda";
 
 import skipProcessing from "./steps/skip-processing";
 import findDailyAggregate from "./steps/find-daily-aggregate";
@@ -19,7 +20,6 @@ async function pipeline (event) {
         return null;
     }
 
-
     // check if use it or not
     if (skipProcessing(rawReading)) {
         return null;
@@ -29,18 +29,14 @@ async function pipeline (event) {
     const readings = spreadReadingByMeasurementType(rawReading);
 
     // retrieve daily aggregate
-    const dailyAggregates = map(readings, findDailyAggregate);
-
-    // merge dailyAggregates and spreadReading
-    // const readings.map(reading => {
-    //     return merge(reading, {
-    //         dailyAggregates.find(agg => {
-    //             return agg.sensorId === reading.sensorId && })
-    //     });
-    // });
+    const dailyAggregates = await map(readings, findDailyAggregate);
 
     // split aggregates, replace with new value and sum
-    const readingTotalConsumptions = getReadingsConsumption(readings, dailyAggregates);
+    const readingTotalConsumptions = getReadingsConsumption(
+        readings,
+        dailyAggregates.filter(agg => {
+            return !isNil(agg);
+        }));
 
     // upsert
     await upsertConsumptions(readingTotalConsumptions);

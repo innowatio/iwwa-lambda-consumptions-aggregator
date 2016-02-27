@@ -35,16 +35,16 @@ describe("getReadingsConsumption", () => {
         }];
 
         const aggregates = [
-            utils.aggregateReactiveEnergy,
-            utils.aggregateMaxPower,
-            utils.aggregateActiveEnergy
+            utils.dayAggregateReactiveEnergy,
+            utils.dayAggregateMaxPower,
+            utils.dayAggregateActiveEnergy
         ];
 
         expect(getReadingsConsumption(readings, aggregates)).to.deep.equals(expected);
     });
 
     it("should replace a value in the same position of the reading date", () => {
-        const aggregates = [utils.aggregateActiveEnergy];
+        const aggregates = [utils.dayAggregateActiveEnergy];
         const readings = [utils.defaultReadings[0]];
         const expected = [{
             sensorId: "sensor1",

@@ -71,52 +71,63 @@ export function getReadingWithMultipleMeasurements () {
     };
 }
 
-export const aggregateActiveEnergy = {
-    "sensorId": "sensor1",
-    "day": "2016-01-28",
-    "source": "reading",
-    "measurementType": "activeEnergy",
-    "measurementValue": "1.1,,5,6",
-    "unitOfMeasurement": "kWh"
+export const dayAggregateActiveEnergy = {
+    sensorId: "sensor1",
+    day: "2016-01-28",
+    source: "reading",
+    measurementType: "activeEnergy",
+    measurementValue: "1.1,,5,6",
+    unitOfMeasurement: "kWh"
 };
 
-export const aggregateReactiveEnergy = {
-    "sensorId": "sensor1",
-    "day": "2016-01-28",
-    "source": "reading",
-    "measurementType": "reactiveEnergy",
-    "measurementValue": "2.2,1,2.2,3.3",
-    "unitOfMeasurement": "°C"
+export const dayAggregateReactiveEnergy = {
+    sensorId: "sensor1",
+    day: "2016-01-28",
+    source: "reading",
+    measurementType: "reactiveEnergy",
+    measurementValue: "2.2,1,2.2,3.3",
+    unitOfMeasurement: "°C"
 };
 
-export const aggregateMaxPower = {
-    "sensorId": "sensor1",
-    "day": "2016-01-28",
-    "source": "reading",
-    "measurementType": "maxPower",
-    "measurementValue": "0,9,8",
-    "unitOfMeasurement": "VAr"
+export const dayAggregateMaxPower = {
+    sensorId: "sensor1",
+    day: "2016-01-28",
+    source: "reading",
+    measurementType: "maxPower",
+    measurementValue: "0,9,8",
+    unitOfMeasurement: "VAr"
+};
+
+
+export const yearAggregateActiveEnergy = {
+    _id: "sensor1-2016-reading-activeEnergy",
+    year: "2016",
+    sensorId: "sensor1",
+    source: "reading",
+    measurementType: "activeEnergy",
+    measurementValues: "1,2,,",
+    unitOfMeasurement: "kWh"
 };
 
 export const defaultReadings = [{
-    "sensorId": "sensor1",
-    "date": "2016-01-28T00:16:36.389Z",
-    "source": "reading",
-    "measurementType": "activeEnergy",
-    "measurementValue": "1.1",
-    "unitOfMeasurement": "kWh"
+    sensorId: "sensor1",
+    date: "2016-01-28T00:16:36.389Z",
+    source: "reading",
+    measurementType: "activeEnergy",
+    measurementValue: "1.1",
+    unitOfMeasurement: "kWh"
 }, {
-    "sensorId": "sensor1",
-    "date": "2016-01-28T00:16:36.389Z",
-    "source": "reading",
-    "measurementType": "reactiveEnergy",
-    "measurementValue": "2.2",
-    "unitOfMeasurement": "kVArh"
+    sensorId: "sensor1",
+    date: "2016-01-28T00:16:36.389Z",
+    source: "reading",
+    measurementType: "reactiveEnergy",
+    measurementValue: "2.2",
+    unitOfMeasurement: "kVArh"
 }, {
-    "sensorId": "sensor1",
-    "date": "2016-01-28T00:16:36.389Z",
-    "source": "reading",
-    "measurementType": "maxPower",
-    "measurementValue": "3.3",
-    "unitOfMeasurement": "VAr"
+    sensorId: "sensor1",
+    date: "2016-01-28T00:16:36.389Z",
+    source: "reading",
+    measurementType: "maxPower",
+    measurementValue: "3.3",
+    unitOfMeasurement: "VAr"
 }];
