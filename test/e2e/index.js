@@ -151,7 +151,7 @@ describe("On reading", () => {
             expect([expected]).to.deep.equal(consumptions);
         });
 
-        it("updates a yearly aggregate 2", async () => {
+        it("updates a yearly aggregate (replace the old daily aggregate value before sum)", async () => {
 
             await dailyAggregates.insert({
                 _id: "sensor1-2016-01-04-reading-activeEnergy",
