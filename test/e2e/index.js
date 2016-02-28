@@ -150,5 +150,43 @@ describe("On reading", () => {
             const consumptions = await yearlyAggregates.find({}).toArray();
             expect([expected]).to.deep.equal(consumptions);
         });
+
+        it("updates a yearly aggregate 2", async () => {
+
+            await dailyAggregates.insert({
+                _id: "sensor1-2016-01-04-reading-activeEnergy",
+                day: "2016-01-04",
+                sensorId: "sensor1",
+                source: "reading",
+                measurementType: "activeEnergy",
+                measurementValues: ",,,4,5,6,7,8",
+                unitOfMeasurement: "kWh"
+            });
+            await yearlyAggregates.insert({
+                _id: "sensor1-2016-reading-activeEnergy",
+                year: "2016",
+                sensorId: "sensor1",
+                source: "reading",
+                measurementType: "activeEnergy",
+                measurementValues: "1,2,3,4",
+                unitOfMeasurement: "kWh"
+            });
+
+            const event = getEventFromObject(
+                utils.getSensorWithSourceInMeasurements("2016-01-04T00:16:36.389Z", "reading"));
+            const expected = {
+                _id: "sensor1-2016-reading-activeEnergy",
+                year: "2016",
+                sensorId: "sensor1",
+                source: "reading",
+                measurementType: "activeEnergy",
+                measurementValues: "1,2,3,26.808",
+                unitOfMeasurement: "kWh"
+            };
+
+            await run(handler, event);
+            const consumptions = await yearlyAggregates.find({}).toArray();
+            expect([expected]).to.deep.equal(consumptions);
+        });
     });
 });
