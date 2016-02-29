@@ -8,4 +8,4 @@ export const ALLOWED_SOURCES = ["reading"];
 export const ALLOWED_ENERGY_TYPES = ["activeEnergy"];
 export const MEASUREMENTS_DELTA_IN_MS = moment.duration(5, "minutes").asMilliseconds();
 export const DAILY_AGGREGATES_COLLECTION_NAME = "readings-daily-aggregates";
-export const YEARLY_AGGREGATES_COLLECTION_NAME = "consumptions-yearly-aggregate";
+export const YEARLY_AGGREGATES_COLLECTION_NAME = "consumptions-yearly-aggregates";
