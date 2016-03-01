@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/innowatio/iwwa-lambda-virtual-aggregator.svg?branch=master)](https://travis-ci.org/innowatio/iwwa-lambda-virtual-aggregator)
-
+[![Build Status](https://travis-ci.org/innowatio/iwwa-lambda-consumptions-aggregator.svg?branch=master)](https://travis-ci.org/innowatio/iwwa-lambda-consumptions-aggregator)
+[![Dependency Status](https://david-dm.org/innowatio/iwwa-lambda-consumptions-aggregator.svg)](https://david-dm.org/innowatio/iwwa-lambda-consumptions-aggregator)
 
 # iwwa-lambda-consumptions-aggregator
 

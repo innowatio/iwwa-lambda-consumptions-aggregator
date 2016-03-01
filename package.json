@@ -11,14 +11,14 @@
     "babel": "^5.8.29",
     "babel-plugin-rewire": "^0.1.22",
     "bluebird": "^3.0.5",
-    "dotenv": "^1.2.0",
+    "dotenv": "^2.0.0",
     "kinesis-router": "^1.2.1",
-    "moment": "^2.11.1",
+    "moment": "^2.11.2",
     "mongodb": "^2.1.7",
     "ramda": "^0.19.1"
   },
   "devDependencies": {
-    "babel": "^5.8.29",
+    "babel": "^6.5.2",
     "babel-core": "^5.8.29",
     "babel-eslint": "^4.1.4",
     "chai": "^3.4.1",
