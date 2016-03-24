@@ -46,11 +46,12 @@ describe("On reading", () => {
                 source: "reading",
                 measurementType: "activeEnergy",
                 measurementValues: ",,,0.808",
-                unitOfMeasurement: "kWh"
+                unitOfMeasurement: "kWh",
+                measurementsDeltaInMs: 86400000
             };
             await run(handler, event);
             const consumptions = await yearlyAggregates.find({}).toArray();
-            expect([expected]).to.deep.equal(consumptions);
+            expect(consumptions).to.deep.equal([expected]);
         });
 
         it("updates a yearly aggregate", async () => {
@@ -66,10 +67,11 @@ describe("On reading", () => {
                 source: "reading",
                 measurementType: "activeEnergy",
                 measurementValues: "0.808,2,,",
-                unitOfMeasurement: "kWh"
+                unitOfMeasurement: "kWh",
+                measurementsDeltaInMs: 86400000
             };
             const consumptions = await yearlyAggregates.find({}).toArray();
-            expect([expected]).to.deep.equal(consumptions);
+            expect(consumptions).to.deep.equal([expected]);
         });
 
         it("does nothing if measurements source is not `reading`", async () => {
@@ -93,7 +95,8 @@ describe("On reading", () => {
                 source: "reading",
                 measurementType: "activeEnergy",
                 measurementValues: "1,2",
-                unitOfMeasurement: "kWh"
+                unitOfMeasurement: "kWh",
+                measurementsDeltaInMs: 86400000
             });
 
             const event = getEventFromObject(
@@ -105,12 +108,13 @@ describe("On reading", () => {
                 source: "reading",
                 measurementType: "activeEnergy",
                 measurementValues: ",,,3.808",
-                unitOfMeasurement: "kWh"
+                unitOfMeasurement: "kWh",
+                measurementsDeltaInMs: 86400000
             };
 
             await run(handler, event);
             const consumptions = await yearlyAggregates.find({}).toArray();
-            expect([expected]).to.deep.equal(consumptions);
+            expect(consumptions).to.deep.equal([expected]);
         });
 
         it("updates a yearly aggregate", async () => {
@@ -122,7 +126,8 @@ describe("On reading", () => {
                 source: "reading",
                 measurementType: "activeEnergy",
                 measurementValues: "1,2",
-                unitOfMeasurement: "kWh"
+                unitOfMeasurement: "kWh",
+                measurementsDeltaInMs: 86400000
             });
             await yearlyAggregates.insert({
                 _id: "sensor1-2016-reading-activeEnergy",
@@ -131,7 +136,8 @@ describe("On reading", () => {
                 source: "reading",
                 measurementType: "activeEnergy",
                 measurementValues: "1,2,3,4",
-                unitOfMeasurement: "kWh"
+                unitOfMeasurement: "kWh",
+                measurementsDeltaInMs: 86400000
             });
 
             const event = getEventFromObject(
@@ -143,12 +149,13 @@ describe("On reading", () => {
                 source: "reading",
                 measurementType: "activeEnergy",
                 measurementValues: "1,2,3,3.808",
-                unitOfMeasurement: "kWh"
+                unitOfMeasurement: "kWh",
+                measurementsDeltaInMs: 86400000
             };
 
             await run(handler, event);
             const consumptions = await yearlyAggregates.find({}).toArray();
-            expect([expected]).to.deep.equal(consumptions);
+            expect(consumptions).to.deep.equal([expected]);
         });
 
         it("updates a yearly aggregate (replace the old daily aggregate value before sum)", async () => {
@@ -160,7 +167,8 @@ describe("On reading", () => {
                 source: "reading",
                 measurementType: "activeEnergy",
                 measurementValues: ",,,4,5,6,7,8",
-                unitOfMeasurement: "kWh"
+                unitOfMeasurement: "kWh",
+                measurementsDeltaInMs: 86400000
             });
             await yearlyAggregates.insert({
                 _id: "sensor1-2016-reading-activeEnergy",
@@ -169,7 +177,8 @@ describe("On reading", () => {
                 source: "reading",
                 measurementType: "activeEnergy",
                 measurementValues: "1,2,3,4",
-                unitOfMeasurement: "kWh"
+                unitOfMeasurement: "kWh",
+                measurementsDeltaInMs: 86400000
             });
 
             const event = getEventFromObject(
@@ -181,12 +190,13 @@ describe("On reading", () => {
                 source: "reading",
                 measurementType: "activeEnergy",
                 measurementValues: "1,2,3,26.808",
-                unitOfMeasurement: "kWh"
+                unitOfMeasurement: "kWh",
+                measurementsDeltaInMs: 86400000
             };
 
             await run(handler, event);
             const consumptions = await yearlyAggregates.find({}).toArray();
-            expect([expected]).to.deep.equal(consumptions);
+            expect(consumptions).to.deep.equal([expected]);
         });
     });
 });

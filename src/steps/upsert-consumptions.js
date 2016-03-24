@@ -4,6 +4,7 @@ import {map} from "bluebird";
 import mongodb from "services/mongodb";
 
 import {
+    CONSUMPTIONS_DELTA_IN_MS,
     MEASUREMENTS_DELTA_IN_MS,
     YEARLY_AGGREGATES_COLLECTION_NAME
 } from "../config";
@@ -61,7 +62,8 @@ async function getOrCreateConsumption (consumption) {
     values[getYearOffset(date)] = sum;
     return {
         ...agg,
-        measurementValues: values.join(",")
+        measurementValues: values.join(","),
+        measurementsDeltaInMs: CONSUMPTIONS_DELTA_IN_MS
     };
 }
 
