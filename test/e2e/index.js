@@ -36,7 +36,6 @@ describe("On reading", () => {
     describe("without readings on DB (no SUM)", () => {
 
         it("create a yearly aggregate", async () => {
-
             const event = getEventFromObject(
                 utils.getSensorWithSourceInMeasurements("2016-01-04T00:16:36.389Z", "reading"));
             const expected = {
@@ -55,7 +54,6 @@ describe("On reading", () => {
         });
 
         it("updates a yearly aggregate", async () => {
-
             await yearlyAggregates.insert(utils.yearAggregateActiveEnergy);
             const event = getEventFromObject(
                 utils.getSensorWithSourceInMeasurements("2016-01-01T00:00:36.389Z", "reading"));
@@ -166,9 +164,9 @@ describe("On reading", () => {
                 sensorId: "sensor1",
                 source: "reading",
                 measurementType: "activeEnergy",
-                measurementValues: ",,,4,5,6,7,8",
-                unitOfMeasurement: "kWh",
-                measurementsDeltaInMs: 86400000
+                measurementValues: "4,5,6,7,8,4",
+                measurementTimes: "1451862180000,1451862600000,1451862960000,1451863200000,1451866596389,1451869200000",
+                unitOfMeasurement: "kWh"
             });
             await yearlyAggregates.insert({
                 _id: "sensor1-2016-reading-activeEnergy",

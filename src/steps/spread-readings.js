@@ -11,7 +11,7 @@ function getReadingSource (reading) {
     return source;
 }
 
-export default function spreadReadingByMeasurementType (reading) {
+export default function spreadReading (reading) {
     const source = getReadingSource(reading);
     return reading.measurements.map(measurement => ({
         sensorId: reading.sensorId,

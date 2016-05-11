@@ -15,15 +15,15 @@ describe("getReadingsConsumption", () => {
             measurementType: "activeEnergy",
             measurementValue: "1.1",
             unitOfMeasurement: "kWh",
-            sum: 7.2
+            sum: 14.2
         }, {
             sensorId: "sensor1",
-            date: "2016-01-28T00:16:36.389Z",
+            date: "2016-01-29T00:16:36.389Z",
             source: "reading",
             measurementType: "reactiveEnergy",
             measurementValue: "2.2",
             unitOfMeasurement: "kVArh",
-            sum: 7.6
+            sum: 14.2
         }, {
             sensorId: "sensor1",
             date: "2016-01-28T00:16:36.389Z",
@@ -35,7 +35,7 @@ describe("getReadingsConsumption", () => {
         }];
 
         const aggregates = [
-            utils.dayAggregateReactiveEnergy,
+            utils.dayAggregateReactiveEnergyWithDifferentDay,
             utils.dayAggregateMaxPower,
             utils.dayAggregateActiveEnergy
         ];
@@ -44,16 +44,16 @@ describe("getReadingsConsumption", () => {
     });
 
     it("should replace a value in the same position of the reading date", () => {
-        const aggregates = [utils.dayAggregateActiveEnergy];
-        const readings = [utils.defaultReadings[0]];
+        const aggregates = [utils.dayAggregateReactiveEnergy];
+        const readings = utils.readingsReactiveEnergy;
         const expected = [{
             sensorId: "sensor1",
             date: "2016-01-28T00:16:36.389Z",
             source: "reading",
-            measurementType: "activeEnergy",
-            measurementValue: "1.1",
-            unitOfMeasurement: "kWh",
-            sum: 7.2
+            measurementType: "reactiveEnergy",
+            measurementValue: "2.2",
+            unitOfMeasurement: "kVArh",
+            sum: 7.6
         }];
 
         expect(getReadingsConsumption(readings, aggregates)).to.deep.equals(expected);

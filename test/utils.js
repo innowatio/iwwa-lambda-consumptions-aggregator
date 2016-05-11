@@ -76,9 +76,11 @@ export const dayAggregateActiveEnergy = {
     day: "2016-01-28",
     source: "reading",
     measurementType: "activeEnergy",
-    measurementValues: "1.1,,5,6",
+    measurementValues: "1.1,1,5,6",
+    measurementTimes: "1453935600000,1453935900000,1453936600000,1453938600000",
     unitOfMeasurement: "kWh"
 };
+
 
 export const dayAggregateReactiveEnergy = {
     sensorId: "sensor1",
@@ -86,7 +88,18 @@ export const dayAggregateReactiveEnergy = {
     source: "reading",
     measurementType: "reactiveEnergy",
     measurementValues: "2.2,1,2.2,3.3",
-    unitOfMeasurement: "°C"
+    measurementTimes: "1453935600000,1453935900000,1453936600000,1453940196389",
+    unitOfMeasurement: "kVArh"
+};
+
+export const dayAggregateReactiveEnergyWithDifferentDay = {
+    sensorId: "sensor1",
+    day: "2016-01-29",
+    source: "reading",
+    measurementType: "reactiveEnergy",
+    measurementValues: "2.5,3,1.2,5.3",
+    measurementTimes: "1454025600000,1454026600000,1454027600000,1454035600000",
+    unitOfMeasurement: "kVArh"
 };
 
 export const dayAggregateMaxPower = {
@@ -95,6 +108,7 @@ export const dayAggregateMaxPower = {
     source: "reading",
     measurementType: "maxPower",
     measurementValues: "0,9,8",
+    measurementTimes: "1453935900000,1453936600000,1453937600000",
     unitOfMeasurement: "VAr"
 };
 
@@ -106,8 +120,18 @@ export const yearAggregateActiveEnergy = {
     source: "reading",
     measurementType: "activeEnergy",
     measurementValues: "1,2,,",
-    unitOfMeasurement: "kWh"
+    unitOfMeasurement: "kWh",
+    measurementsDeltaInMs: 86400000
 };
+
+export const readingsReactiveEnergy = [{
+    sensorId: "sensor1",
+    date: "2016-01-28T00:16:36.389Z",
+    source: "reading",
+    measurementType: "reactiveEnergy",
+    measurementValue: "2.2",
+    unitOfMeasurement: "kVArh"
+}];
 
 export const defaultReadings = [{
     sensorId: "sensor1",
@@ -118,7 +142,7 @@ export const defaultReadings = [{
     unitOfMeasurement: "kWh"
 }, {
     sensorId: "sensor1",
-    date: "2016-01-28T00:16:36.389Z",
+    date: "2016-01-29T00:16:36.389Z",
     source: "reading",
     measurementType: "reactiveEnergy",
     measurementValue: "2.2",
