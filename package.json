@@ -31,7 +31,6 @@
   },
   "scripts": {
     "build": "babel src -d bundle",
-    "codecov": "codecov",
     "coverage": "NODE_ENV=test NODE_PATH=src babel-node $(npm bin)/isparta cover node_modules/mocha/bin/_mocha -- --recursive",
     "dev": "npm test -- --watch",
     "lint": "eslint src test",

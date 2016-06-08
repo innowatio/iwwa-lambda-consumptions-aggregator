@@ -12,4 +12,4 @@ env:
 script:
   - npm run lint
   - npm run coverage
-  - npm run codecov
+  - codecov
