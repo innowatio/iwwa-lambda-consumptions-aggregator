@@ -1,3 +1,3 @@
 import bunyan from "bunyan";
 
-export default bunyan.createLogger({name: "virtual-aggregator"});
+export default bunyan.createLogger({name: "consumptions-aggregator"});
