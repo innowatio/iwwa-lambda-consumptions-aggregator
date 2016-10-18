@@ -1,6 +1,6 @@
 import {expect} from "chai";
 
-import mongodb from "services/mongodb";
+import {getMongoClient} from "services/mongodb";
 import {
     DAILY_AGGREGATES_COLLECTION_NAME,
     YEARLY_AGGREGATES_COLLECTION_NAME
@@ -17,20 +17,20 @@ describe("On reading", () => {
     var yearlyAggregates;
 
     before(async () => {
-        db = await mongodb;
+        db = await getMongoClient();
         dailyAggregates = db.collection(DAILY_AGGREGATES_COLLECTION_NAME);
         yearlyAggregates = db.collection(YEARLY_AGGREGATES_COLLECTION_NAME);
     });
 
     after(async () => {
-        db.dropCollection(DAILY_AGGREGATES_COLLECTION_NAME);
-        db.dropCollection(YEARLY_AGGREGATES_COLLECTION_NAME);
+        await db.dropCollection(DAILY_AGGREGATES_COLLECTION_NAME);
+        await db.dropCollection(YEARLY_AGGREGATES_COLLECTION_NAME);
         await db.close();
     });
 
     afterEach(async () => {
-        dailyAggregates.remove({});
-        yearlyAggregates.remove({});
+        await dailyAggregates.remove({});
+        await yearlyAggregates.remove({});
     });
 
     describe("without readings on DB (no SUM)", () => {

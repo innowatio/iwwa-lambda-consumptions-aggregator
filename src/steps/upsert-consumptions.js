@@ -1,7 +1,7 @@
 import moment from "moment";
 import {map} from "bluebird";
 
-import mongodb from "services/mongodb";
+import {getMongoClient} from "services/mongodb";
 
 import {
     CONSUMPTIONS_DELTA_IN_MS,
@@ -9,7 +9,7 @@ import {
 } from "../config";
 
 async function performUpsert (consumption) {
-    const db = await mongodb;
+    const db = await getMongoClient();
     return db.collection(YEARLY_AGGREGATES_COLLECTION_NAME).update(
         {_id: consumption._id},
         consumption,
@@ -46,7 +46,7 @@ function getDefaultAggregate (consumption) {
 
 async function getOrCreateConsumption (consumption) {
     const {date, sum} = consumption;
-    const db = await mongodb;
+    const db = await getMongoClient();
     const aggregate = await db
         .collection(YEARLY_AGGREGATES_COLLECTION_NAME)
         .findOne({_id: getAggregateId(consumption)});
