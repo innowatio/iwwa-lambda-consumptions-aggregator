@@ -18,6 +18,22 @@ describe("getReadingsConsumption", () => {
             sum: 14.2
         }, {
             sensorId: "sensor1",
+            date: "2016-01-28T00:16:36.389Z",
+            source: "reference",
+            measurementType: "activeEnergy",
+            measurementValue: "1.1",
+            unitOfMeasurement: "kWh",
+            sum: 14.2
+        }, {
+            sensorId: "sensor1",
+            date: "2016-01-28T00:16:36.389Z",
+            source: "reading",
+            measurementType: "comfortLevel",
+            measurementValue: "1.1",
+            unitOfMeasurement: "status",
+            sum: 4.1 // TODO
+        }, {
+            sensorId: "sensor1",
             date: "2016-01-29T00:16:36.389Z",
             source: "reading",
             measurementType: "reactiveEnergy",
@@ -37,7 +53,9 @@ describe("getReadingsConsumption", () => {
         const aggregates = [
             utils.dayAggregateReactiveEnergyWithDifferentDay,
             utils.dayAggregateMaxPower,
-            utils.dayAggregateActiveEnergy
+            utils.dayAggregateActiveEnergy,
+            utils.dayAggregateComfortLevel,
+            utils.dayAggregateReferenceActiveEnergy
         ];
 
         expect(getReadingsConsumption(readings, aggregates)).to.deep.equals(expected);

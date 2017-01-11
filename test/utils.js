@@ -66,6 +66,10 @@ export function getReadingWithMultipleMeasurements () {
                 "type": "maxPower",
                 "value": "3.3",
                 "unitOfMeasurement": "VAr"
+            }, {
+                "type": "comfortLevel",
+                "value": "2",
+                "unitOfMeasurement": "status"
             }
         ]
     };
@@ -81,6 +85,16 @@ export const dayAggregateActiveEnergy = {
     unitOfMeasurement: "kWh"
 };
 
+export const dayAggregateReferenceActiveEnergy = {
+    sensorId: "sensor1",
+    day: "2016-01-28",
+    source: "reference",
+    measurementType: "activeEnergy",
+    measurementValues: "1.1",
+    unitOfMeasurement: "kWh",
+    measurementTimes: 1393628400000
+};
+
 
 export const dayAggregateReactiveEnergy = {
     sensorId: "sensor1",
@@ -90,6 +104,16 @@ export const dayAggregateReactiveEnergy = {
     measurementValues: "2.2,1,2.2,3.3",
     measurementTimes: "1453935600000,1453935900000,1453936600000,1453940196389",
     unitOfMeasurement: "kVArh"
+};
+
+export const dayAggregateComfortLevel = {
+    sensorId: "sensor1",
+    day: "2016-01-28",
+    source: "reading",
+    measurementType: "comfortLevel",
+    measurementValues: "0,1,2,1",
+    measurementTimes: "1453935600000,1453935900000,1453936600000,1453940196389",
+    unitOfMeasurement: "status"
 };
 
 export const dayAggregateReactiveEnergyWithDifferentDay = {
@@ -142,6 +166,20 @@ export const defaultReadings = [{
     unitOfMeasurement: "kWh"
 }, {
     sensorId: "sensor1",
+    date: "2016-01-28T00:16:36.389Z",
+    source: "reference",
+    measurementType: "activeEnergy",
+    measurementValue: "1.1",
+    unitOfMeasurement: "kWh"
+}, {
+    sensorId: "sensor1",
+    date: "2016-01-28T00:16:36.389Z",
+    source: "reading",
+    measurementType: "comfortLevel",
+    measurementValue: "1.1",
+    unitOfMeasurement: "status"
+}, {
+    sensorId: "sensor1",
     date: "2016-01-29T00:16:36.389Z",
     source: "reading",
     measurementType: "reactiveEnergy",
@@ -154,4 +192,13 @@ export const defaultReadings = [{
     measurementType: "maxPower",
     measurementValue: "3.3",
     unitOfMeasurement: "VAr"
+}];
+
+export const defaultReference = [{
+    sensorId: "sensor1",
+    date: "2016-01-28T00:16:36.389Z",
+    source: "reference",
+    measurementType: "activeEnergy",
+    measurementValue: "1.1",
+    unitOfMeasurement: "kWh"
 }];

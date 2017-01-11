@@ -1,3 +1,4 @@
+import "babel-polyfill";
 import BPromise from "bluebird";
 
 function objectToBase64 (object) {

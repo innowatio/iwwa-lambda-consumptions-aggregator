@@ -1,4 +1,4 @@
-import {propEq, contains} from "ramda";
+import {contains} from "ramda";
 
 import * as config from "../config";
 
@@ -7,7 +7,7 @@ function checkSource (reading) {
 }
 
 function checkContainsAllowedTypes (reading) {
-    return reading.measurements.find(propEq("type", "activeEnergy"));
+    return contains((reading.type || reading.measurements[0].type), config.ALLOWED_ENERGY_TYPES);
 }
 
 export default function skipProcessing (reading) {
