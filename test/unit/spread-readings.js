@@ -33,7 +33,7 @@ describe("spreadReadingByMeasurementType", () => {
             "sensorId": "sensor1",
             "date": "2016-01-28T00:16:36.389Z",
             "source": "reading",
-            "measurementType": "comfortLevel",
+            "measurementType": "comfort",
             "measurementValue": "2",
             "unitOfMeasurement": "status"
         }];

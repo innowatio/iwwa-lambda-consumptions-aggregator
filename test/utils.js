@@ -67,7 +67,7 @@ export function getReadingWithMultipleMeasurements () {
                 "value": "3.3",
                 "unitOfMeasurement": "VAr"
             }, {
-                "type": "comfortLevel",
+                "type": "comfort",
                 "value": "2",
                 "unitOfMeasurement": "status"
             }
@@ -110,7 +110,7 @@ export const dayAggregateComfortLevel = {
     sensorId: "sensor1",
     day: "2016-01-28",
     source: "reading",
-    measurementType: "comfortLevel",
+    measurementType: "comfort",
     measurementValues: "0,1,2,1",
     measurementTimes: "1453935600000,1453935900000,1453936600000,1453940196389",
     unitOfMeasurement: "status"
@@ -175,7 +175,7 @@ export const defaultReadings = [{
     sensorId: "sensor1",
     date: "2016-01-28T00:16:36.389Z",
     source: "reading",
-    measurementType: "comfortLevel",
+    measurementType: "comfort",
     measurementValue: "1.1",
     unitOfMeasurement: "status"
 }, {

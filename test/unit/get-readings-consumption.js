@@ -28,7 +28,7 @@ describe("getReadingsConsumption", () => {
             sensorId: "sensor1",
             date: "2016-01-28T00:16:36.389Z",
             source: "reading",
-            measurementType: "comfortLevel",
+            measurementType: "comfort",
             measurementValue: "1.1",
             unitOfMeasurement: "status",
             sum: 4.1 // TODO

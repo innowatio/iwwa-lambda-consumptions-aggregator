@@ -8,7 +8,7 @@ describe("skipProcessing", () => {
     it("skips if the source is not a `reading`", () => {
         const forecast = getMeasure({source: "forecast", type: "activeEnergy"});
         const reading = getMeasure({source: "reading", type: "activeEnergy"});
-        const comfort = getMeasure({source: "reading", type: "comfortLevel"});
+        const comfort = getMeasure({source: "reading", type: "comfort"});
 
         expect(skipProcessing(forecast)).to.be.equals(true);
         expect(skipProcessing(reading)).to.be.equals(false);
@@ -41,9 +41,9 @@ describe("skipProcessing", () => {
         expect(skipProcessing(referenceReactiveEnergy)).to.be.equals(true);
     });
 
-    it("skips if there are no `comfortLevel` measurements", () => {
+    it("skips if there are no `comfort` measurements", () => {
         const readingMaxPower = getMeasure({source: "reading", type: "maxPower"});
-        const readingComfortLevel = getMeasure({source: "reading", type: "comfortLevel"});
+        const readingComfortLevel = getMeasure({source: "reading", type: "comfort"});
         const readingReactiveEnergy = getMeasure({source: "reading", type: "reactiveEnergy"});
 
         expect(skipProcessing(readingMaxPower)).to.be.equals(true);
