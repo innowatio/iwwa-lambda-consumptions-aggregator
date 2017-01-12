@@ -52,7 +52,17 @@ async function getOrCreateConsumption (consumption) {
         .findOne({_id: getAggregateId(consumption)});
     const agg = aggregate || getDefaultAggregate(consumption);
     var values = agg.measurementValues.split(",");
-    values[getYearOffset(date)] = sum;
+
+    /*
+     * Hotfix to filter NaN values and avoid app crashes.
+     * Should be:
+     *
+     *     values[getYearOffset(date)] = sum;
+     *
+     * When virtual sensors are fixed.
+     */
+    values[getYearOffset(date)] = isNaN(parseFloat(sum)) ? 0 : sum;
+
     return {
         ...agg,
         measurementValues: values.join(","),
